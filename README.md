@@ -58,8 +58,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 ![ItemList](https://github.com/felipeandrademorais/ShoplistApp/assets/7452278/96b2bc6a-e3a7-4da6-b43c-56280a134e60)
 
-![App Screenshot](url-to-image)
-
 ## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
