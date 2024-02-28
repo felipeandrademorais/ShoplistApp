@@ -8,7 +8,7 @@ import { MoneyInput } from "../moneyInput";
 import { saveData } from "../../services/SupabaseService";
 
 export const Modal = () => {
-    const { modalRef, setItens, closeModal } = useContext(AppContext);
+    const { modalRef, closeModal } = useContext(AppContext);
     const [selectedCategory, setSelectedCategory] = useState();
     const [form, setForm] = useState({
         title: "",
@@ -21,7 +21,6 @@ export const Modal = () => {
 
     const handleSubmit = async () => {
         const newItem = { ...form, total: total.toFixed(2) };
-        setItens((prev) => [...prev, newItem]);
         closeModal();
         try {
             await saveData("lists", newItem);
