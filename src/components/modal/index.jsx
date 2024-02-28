@@ -5,6 +5,7 @@ import { Picker } from "@react-native-picker/picker";
 import { AppContext } from "../../context";
 import { InputComponent } from "../input";
 import { MoneyInput } from "../moneyInput";
+import { saveData } from "../../services/SupabaseService";
 
 export const Modal = () => {
     const { modalRef, setItens, closeModal } = useContext(AppContext);
@@ -18,10 +19,15 @@ export const Modal = () => {
 
     const total = parseFloat(form.quantity || 0) * parseFloat(form.valor || 0);
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const newItem = { ...form, total: total.toFixed(2) };
         setItens((prev) => [...prev, newItem]);
         closeModal();
+        try {
+            await saveData("lists", newItem);
+        } catch (error) {
+            console.log(error);
+        }
         setForm({
             title: "",
             quantity: "",
