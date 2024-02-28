@@ -1,8 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
+import { sortItemsByChecked } from "../../util/DataUtil";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.EXPO_PUBLIC_SUPABASE_KEY;
-
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function saveData(tableName, data) {
@@ -16,7 +16,7 @@ export async function fetchData(tableName, queryOptions) {
         .select("*")
         .match(queryOptions);
     if (error) throw new Error(error.message);
-    return data;
+    return sortItemsByChecked(data);
 }
 
 export function subscribeToData(tableName, setItens) {
@@ -26,7 +26,9 @@ export function subscribeToData(tableName, setItens) {
             "postgres_changes",
             { event: "INSERT", schema: "public" },
             (payload) => {
-                setItens((currentItems) => [...currentItems, payload.new]);
+                setItens((currentItems) =>
+                    sortItemsByChecked([...currentItems, payload.new])
+                );
             }
         )
         .on(
@@ -34,8 +36,10 @@ export function subscribeToData(tableName, setItens) {
             { event: "UPDATE", schema: "public" },
             (payload) => {
                 setItens((currentItems) =>
-                    currentItems.map((item) =>
-                        item.id === payload.new.id ? payload.new : item
+                    sortItemsByChecked(
+                        currentItems.map((item) =>
+                            item.id === payload.new.id ? payload.new : item
+                        )
                     )
                 );
             }
@@ -45,7 +49,11 @@ export function subscribeToData(tableName, setItens) {
             { event: "DELETE", schema: "public" },
             (payload) => {
                 setItens((currentItems) =>
-                    currentItems.filter((item) => item.id !== payload.old.id)
+                    sortItemsByChecked(
+                        currentItems.filter(
+                            (item) => item.id !== payload.old.id
+                        )
+                    )
                 );
             }
         )

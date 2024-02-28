@@ -32,7 +32,7 @@ export const ListItens = () => {
             ) : (
                 <FlatList
                     data={itens}
-                    keyExtractor={(item) => item.id.toString()}
+                    keyExtractor={(item) => item.id}
                     renderItem={({ item }) => <Item {...item} />}
                     ListEmptyComponent={<EmptyItens />}
                     className="flex-1"
