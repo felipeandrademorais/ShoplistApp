@@ -6,7 +6,7 @@ import { updateData } from "../../services/SupabaseService";
 export const Checkbox = ({ item }) => {
     const handleCheckbox = async () => {
         try {
-            await updateData("lists", item.id, { checked: !item.checked });
+            await updateData("lists", { checked: !item.checked }, item.id);
         } catch (error) {
             console.log(error);
         }
