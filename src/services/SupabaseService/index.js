@@ -10,6 +10,11 @@ export async function saveData(tableName, data) {
     if (error) throw new Error(error.message);
 }
 
+export async function updateData(tableName, data, id) {
+    const { error } = await supabase.from(tableName).update(data).match({ id });
+    if (error) throw new Error(error.message);
+}
+
 export async function fetchData(tableName, queryOptions) {
     const { data, error } = await supabase
         .from(tableName)
@@ -62,11 +67,6 @@ export function subscribeToData(tableName, setItens) {
 
 export async function removeData(tableName, id) {
     const { error } = await supabase.from(tableName).delete().match({ id });
-    if (error) throw new Error(error.message);
-}
-
-export async function updateData(tableName, id, data) {
-    const { error } = await supabase.from(tableName).update(data).match({ id });
     if (error) throw new Error(error.message);
 }
 

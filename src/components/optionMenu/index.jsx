@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import { useContext } from "react";
+import { View, Alert } from "react-native";
 import {
     Menu,
     MenuOptions,
@@ -7,10 +8,50 @@ import {
 } from "react-native-popup-menu";
 import { PropTypes } from "prop-types";
 import { removeData } from "../../services/SupabaseService";
+import { AppContext } from "../../context";
 
 export const OptionMenu = ({ item }) => {
+    const { setForm, openModal } = useContext(AppContext);
+
     const onDelete = (id) => {
-        removeData("lists", id);
+        Alert.alert(
+            "Confirmação",
+            "Tem certeza de que deseja excluir este item?",
+            [
+                {
+                    text: "Cancelar",
+                    onPress: () => {},
+                    style: "cancel",
+                },
+                {
+                    text: "Excluir",
+                    onPress: () => removeData("lists", id),
+                    style: "destructive",
+                },
+            ],
+            { cancelable: false }
+        );
+    };
+
+    const onEdit = (item) => {
+        const { title, quantity, category, valor } = item;
+        setForm({
+            id: item.id,
+            title,
+            quantity: quantity.toString(),
+            category,
+            valor: valor.toString(),
+        });
+        openModal();
+    };
+
+    const optionTextStyles = {
+        color: "#FBF9FE",
+        fontSize: 18,
+        fontWeight: "bold",
+        textAlign: "left",
+        marginTop: 10,
+        marginBottom: 10,
     };
 
     return (
@@ -27,20 +68,22 @@ export const OptionMenu = ({ item }) => {
                     width: 130,
                     marginTop: 10,
                     padding: 5,
-                    height: 45,
                     borderRadius: 6,
                     backgroundColor: "#252525",
                 }}
             >
+                {!item.checked && (
+                    <MenuOption
+                        customStyles={{
+                            optionText: optionTextStyles,
+                        }}
+                        onSelect={() => onEdit(item)}
+                        text="Editar"
+                    />
+                )}
                 <MenuOption
                     customStyles={{
-                        optionText: {
-                            color: "#FBF9FE",
-                            fontSize: 18,
-                            fontWeight: "bold",
-                            textAlign: "left",
-                            marginTop: "auto",
-                        },
+                        optionText: { ...optionTextStyles, color: "#cc3300" },
                     }}
                     onSelect={() => onDelete(item.id)}
                     text="Excluir"

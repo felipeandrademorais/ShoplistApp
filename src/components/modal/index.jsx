@@ -1,38 +1,66 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { View, TextInput, Text, TouchableOpacity } from "react-native";
 import { Modalize } from "react-native-modalize";
 import { Picker } from "@react-native-picker/picker";
 import { AppContext } from "../../context";
 import { InputComponent } from "../input";
 import { MoneyInput } from "../moneyInput";
-import { saveData } from "../../services/SupabaseService";
+import { saveData, updateData } from "../../services/SupabaseService";
 
 export const Modal = () => {
-    const { modalRef, closeModal } = useContext(AppContext);
-    const [selectedCategory, setSelectedCategory] = useState();
-    const [form, setForm] = useState({
-        title: "",
-        quantity: "",
-        category: "",
-        valor: "",
-    });
+    const { modalRef, closeModal, form, setForm } = useContext(AppContext);
+    const total =
+        parseFloat(form.quantity || 1) * parseFloat(form.valor || 0).toFixed(2);
 
-    const total = parseFloat(form.quantity || 0) * parseFloat(form.valor || 0);
-
-    const handleSubmit = async () => {
-        const newItem = { ...form, total: total.toFixed(2) };
-        closeModal();
-        try {
-            await saveData("lists", newItem);
-        } catch (error) {
-            console.log(error);
-        }
+    const clearForm = () => {
         setForm({
             title: "",
             quantity: "",
             category: "",
             valor: "",
         });
+    };
+
+    const validateForm = () => {
+        if (form.id == "") {
+            delete form.id;
+        }
+        if (!form.title) {
+            return "O campo item é obrigatório";
+        }
+        if (!form.valor) {
+            return "O campo valor é obrigatório";
+        }
+        if (!form.quantity) {
+            setForm({ ...form, quantity: 1 });
+        }
+        return "";
+    };
+
+    const handleSubmit = async () => {
+        const newItem = {
+            ...form,
+            total: total,
+        };
+
+        const validation = validateForm();
+        if (validation !== "") {
+            return alert(validation);
+        }
+
+        closeModal();
+
+        try {
+            if (!form.id) {
+                await saveData("lists", newItem);
+            } else {
+                await updateData("lists", newItem, form.id);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+        clearForm();
     };
 
     return (
@@ -47,12 +75,14 @@ export const Modal = () => {
                 borderTopLeftRadius: 20,
                 borderTopRightRadius: 20,
             }}
+            onClosed={() => clearForm()}
         >
             <View className="flex-1 pt-10 px-5">
                 <View className="flex-row justify-between items-center">
                     <InputComponent
                         label="Item"
                         placeholder="Ex: Banana"
+                        value={form.title}
                         onChangeText={(text) =>
                             setForm({ ...form, title: text })
                         }
@@ -76,6 +106,7 @@ export const Modal = () => {
                                 placeholder="Ex: 2"
                                 placeholderTextColor="#454545"
                                 keyboardType="numeric"
+                                value={form.quantity}
                                 onChangeText={(text) =>
                                     setForm({ ...form, quantity: text })
                                 }
@@ -94,11 +125,10 @@ export const Modal = () => {
                         <Text className="text-white mb-2">Categoria</Text>
 
                         <Picker
-                            selectedValue={selectedCategory}
-                            onValueChange={(itemValue, itemIndex) => (
-                                setSelectedCategory(itemValue),
+                            selectedValue={form.category}
+                            onValueChange={(itemValue, itemIndex) =>
                                 setForm({ ...form, category: itemValue })
-                            )}
+                            }
                             defaultValue="Carrot"
                             style={{
                                 color: "white",
@@ -119,7 +149,7 @@ export const Modal = () => {
                     className="h-12 bg-purple mt-4 p-3 rounded-lg"
                 >
                     <Text className="text-white text-center font-bold my-auto">
-                        Adicionar
+                        {form.id ? "Editar" : "Adicionar"}
                     </Text>
                 </TouchableOpacity>
             </View>
