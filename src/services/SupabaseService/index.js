@@ -8,27 +8,6 @@ const supabaseKey = process.env.EXPO_PUBLIC_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export function useSupabase() {
-    const { setItems } = useContext(AppContext);
-
-    const saveData = async (tableName, data) => {
-        setItems((currentItems) => [...currentItems, data]);
-        const { error } = await supabase.from(tableName).insert([data]);
-        if (error) throw new Error(error.message);
-    };
-
-    const updateData = async (tableName, data, id) => {
-        setItems((currentItems) =>
-            currentItems.map((item) =>
-                item.id === id ? { ...item, ...data } : item
-            )
-        );
-        const { error } = await supabase
-            .from(tableName)
-            .update(data)
-            .match({ id });
-        if (error) throw new Error(error.message);
-    };
-
     const fetchData = async (tableName, queryOptions) => {
         const { data, error } = await supabase
             .from(tableName)
@@ -36,6 +15,24 @@ export function useSupabase() {
             .match(queryOptions);
         if (error) throw new Error(error.message);
         return sortItemsByChecked(data);
+    };
+
+    const saveData = async (tableName, data) => {
+        const { error } = await supabase.from(tableName).insert([data]);
+        if (error) throw new Error(error.message);
+    };
+
+    const updateData = async (tableName, data, id) => {
+        const { error } = await supabase
+            .from(tableName)
+            .update(data)
+            .match({ id });
+        if (error) throw new Error(error.message);
+    };
+
+    const removeData = async (tableName, id) => {
+        const { error } = await supabase.from(tableName).delete().match({ id });
+        if (error) throw new Error(error.message);
     };
 
     const subscribeToData = async (tableName, setItens) => {
@@ -77,14 +74,6 @@ export function useSupabase() {
                 }
             )
             .subscribe();
-    };
-
-    const removeData = async (tableName, id) => {
-        setItems((currentItems) =>
-            currentItems.filter((item) => item.id !== id)
-        );
-        const { error } = await supabase.from(tableName).delete().match({ id });
-        if (error) throw new Error(error.message);
     };
 
     const unsubscribe = async (subscription) => {
