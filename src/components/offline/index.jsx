@@ -1,11 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import { View, Text } from "react-native";
-import { useNetInfo } from "@react-native-community/netinfo";
+import { AppContext } from "../../context";
 
 const OfflineMessage = () => {
-    const netInfo = useNetInfo();
+    const { isConnected } = useContext(AppContext);
 
-    if (netInfo.isConnected && netInfo.isInternetReachable) {
+    if (isConnected) {
         return null;
     }
 

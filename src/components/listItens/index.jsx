@@ -1,12 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { FlatList, ActivityIndicator, View } from "react-native";
-import { fetchData, subscribeToData } from "../../services/SupabaseService";
+import { useSupabase } from "../../services/SupabaseService";
 import { Item, EmptyItens } from "../item";
 import { AppContext } from "../../context";
 
 export const ListItens = () => {
     const { itens, setItens } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
+    const { fetchData, subscribeToData } = useSupabase();
 
     useEffect(() => {
         fetchItens();

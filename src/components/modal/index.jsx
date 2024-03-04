@@ -5,10 +5,11 @@ import { Picker } from "@react-native-picker/picker";
 import { AppContext } from "../../context";
 import { InputComponent } from "../input";
 import { MoneyInput } from "../moneyInput";
-import { saveData, updateData } from "../../services/SupabaseService";
+import { useSupabase } from "../../services/SupabaseService";
 
 export const Modal = () => {
     const { modalRef, closeModal, form, setForm } = useContext(AppContext);
+    const { saveData, updateData } = useSupabase();
     const total =
         parseFloat(form.quantity || 1) * parseFloat(form.valor || 0).toFixed(2);
 

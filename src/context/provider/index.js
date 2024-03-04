@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState, useCallback } from "react";
 import PropTypes from "prop-types";
+import { useNetInfo } from "@react-native-community/netinfo";
 import { AppContext } from "..";
 
 export const AppProvider = ({ children }) => {
@@ -13,6 +14,8 @@ export const AppProvider = ({ children }) => {
         valor: "",
     });
     const [itens, setItens] = useState([]);
+    const netInfo = useNetInfo();
+    const isConnected = netInfo.isConnected && netInfo.isInternetReachable;
 
     const value = useMemo(
         () => ({
@@ -23,8 +26,9 @@ export const AppProvider = ({ children }) => {
             setItens,
             form,
             setForm,
+            isConnected,
         }),
-        [openModal, closeModal, form, itens]
+        [openModal, closeModal, form, itens, isConnected]
     );
 
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
