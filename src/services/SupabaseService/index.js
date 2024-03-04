@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { AppContext } from "../../context";
 import { sortItemsByChecked } from "../../util/DataUtil";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
@@ -42,9 +40,7 @@ export function useSupabase() {
                 "postgres_changes",
                 { event: "INSERT", schema: "public" },
                 (payload) => {
-                    setItens((currentItems) =>
-                        sortItemsByChecked([...currentItems, payload.new])
-                    );
+                    setItens((currentItems) => [...currentItems, payload.new]);
                 }
             )
             .on(
@@ -52,10 +48,8 @@ export function useSupabase() {
                 { event: "UPDATE", schema: "public" },
                 (payload) => {
                     setItens((currentItems) =>
-                        sortItemsByChecked(
-                            currentItems.map((item) =>
-                                item.id === payload.new.id ? payload.new : item
-                            )
+                        currentItems.map((item) =>
+                            item.id === payload.new.id ? payload.new : item
                         )
                     );
                 }
@@ -65,10 +59,8 @@ export function useSupabase() {
                 { event: "DELETE", schema: "public" },
                 (payload) => {
                     setItens((currentItems) =>
-                        sortItemsByChecked(
-                            currentItems.filter(
-                                (item) => item.id !== payload.old.id
-                            )
+                        currentItems.filter(
+                            (item) => item.id !== payload.old.id
                         )
                     );
                 }
