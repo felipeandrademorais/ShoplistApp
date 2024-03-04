@@ -9,7 +9,7 @@ export const Add = () => {
     return (
         <TouchableOpacity
             onPress={openModal}
-            className="w-[55px] h-[55px] absolute bg-purple rounded-full flex items-center justify-center right-8 bottom-10 z-10"
+            className="w-[55px] h-[55px] absolute bg-purple rounded-full flex items-center justify-center right-14 bottom-10 z-10"
         >
             <Plus className="text-gray-100" width={30} height={30} />
         </TouchableOpacity>
