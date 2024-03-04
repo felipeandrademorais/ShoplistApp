@@ -25,7 +25,8 @@
     "react-native-modalize": "^2.1.1",
     "react-native-popup-menu": "^0.16.1",
     "react-native-reanimated": "~3.6.2",
-    "react-native-svg": "^14.1.0"
+    "react-native-svg": "^14.1.0",
+    "@react-native-community/netinfo": "11.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
