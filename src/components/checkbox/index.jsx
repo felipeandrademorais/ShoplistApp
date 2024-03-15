@@ -1,10 +1,10 @@
 import { TouchableOpacity, View } from "react-native";
 import { Check } from "lucide-react-native";
 import PropTypes from "prop-types";
-import { useSupabase } from "../../services/SupabaseService";
+import { useDatabase } from "../../services/DatabaseService";
 
 export const Checkbox = ({ item }) => {
-    const { updateData } = useSupabase();
+    const { updateData } = useDatabase();
 
     const handleCheckbox = async () => {
         try {

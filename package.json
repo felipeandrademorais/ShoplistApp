@@ -1,36 +1,36 @@
 {
-  "name": "Minimalist Shopping List",
-  "slug": "minimalist-shopping-list",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
-  },
-  "dependencies": {
-    "@react-native-picker/picker": "2.6.1",
-    "@supabase/supabase-js": "^2.39.7",
-    "expo": "~50.0.8",
-    "expo-checkbox": "~2.7.0",
-    "expo-status-bar": "~1.11.1",
-    "expo-updates": "~0.24.11",
-    "lucide-react-native": "^0.335.0",
-    "nativewind": "^2.0.11",
-    "react": "18.2.0",
-    "react-native": "0.73.4",
-    "react-native-gesture-handler": "~2.14.0",
-    "react-native-masked-text": "^1.13.0",
-    "react-native-modalize": "^2.1.1",
-    "react-native-popup-menu": "^0.16.1",
-    "react-native-reanimated": "~3.6.2",
-    "react-native-svg": "^14.1.0",
-    "@react-native-community/netinfo": "11.1.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "tailwindcss": "^3.3.2"
-  },
-  "private": true
+    "name": "Minimalist shopping List",
+    "slug": "minimalist-shopping-list",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+        "start": "expo start",
+        "android": "expo start --android",
+        "ios": "expo start --ios",
+        "web": "expo start --web"
+    },
+    "dependencies": {
+        "@react-native-picker/picker": "2.6.1",
+        "@supabase/supabase-js": "^2.39.7",
+        "expo": "~50.0.8",
+        "expo-checkbox": "~2.7.0",
+        "expo-status-bar": "~1.11.1",
+        "expo-updates": "~0.24.11",
+        "lucide-react-native": "^0.335.0",
+        "nativewind": "^2.0.11",
+        "react": "18.2.0",
+        "react-native": "0.73.4",
+        "react-native-gesture-handler": "~2.14.0",
+        "react-native-masked-text": "^1.13.0",
+        "react-native-modalize": "^2.1.1",
+        "react-native-popup-menu": "^0.16.1",
+        "react-native-reanimated": "~3.6.2",
+        "react-native-svg": "^14.1.0",
+        "@react-native-community/netinfo": "11.1.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.20.0",
+        "tailwindcss": "^3.3.2"
+    },
+    "private": true
 }

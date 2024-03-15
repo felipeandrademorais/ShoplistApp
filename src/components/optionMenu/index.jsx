@@ -7,12 +7,12 @@ import {
     MenuTrigger,
 } from "react-native-popup-menu";
 import { PropTypes } from "prop-types";
-import { useSupabase } from "../../services/SupabaseService";
+import { useDatabase } from "../../services/DatabaseService";
 import { AppContext } from "../../context";
 
 export const OptionMenu = ({ item }) => {
     const { setForm, openModal } = useContext(AppContext);
-    const { removeData } = useSupabase();
+    const { removeData } = useDatabase();
 
     const onDelete = (id) => {
         Alert.alert(

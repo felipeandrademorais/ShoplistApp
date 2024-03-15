@@ -1,13 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { FlatList, ActivityIndicator, View } from "react-native";
-import { useSupabase } from "../../services/SupabaseService";
+import { useDatabase } from "../../services/DatabaseService";
 import { Item, EmptyItens } from "../item";
 import { AppContext } from "../../context";
 
 export const ListItens = () => {
     const { itens, setItens } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
-    const { fetchData, subscribeToData } = useSupabase();
+    const { fetchData, subscribeToData } = useDatabase();
 
     useEffect(() => {
         fetchItens();
@@ -17,8 +17,7 @@ export const ListItens = () => {
     const fetchItens = async () => {
         setIsLoading(true);
         try {
-            const data = await fetchData("lists", {});
-            setItens(data);
+            await fetchData("lists", {});
         } catch (error) {
             console.log(error);
         } finally {

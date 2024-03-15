@@ -5,7 +5,10 @@ import { formatarValor } from "../../util/ValorUtil";
 
 export const Somatorio = () => {
     const { itens } = useContext(AppContext);
-    const total = itens.reduce((acc, item) => acc + Number(item.total), 0);
+    const total =
+        Array.isArray(itens) && itens.length > 0
+            ? itens.reduce((acc, item) => acc + Number(item.total), 0)
+            : 0;
 
     if (total > 0) {
         return (
