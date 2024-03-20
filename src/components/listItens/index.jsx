@@ -1,5 +1,10 @@
 import { useEffect, useState, useContext } from "react";
-import { FlatList, ActivityIndicator, View } from "react-native";
+import {
+    FlatList,
+    ActivityIndicator,
+    View,
+    RefreshControl,
+} from "react-native";
 import { useDatabase } from "../../services/DatabaseService";
 import { Item, EmptyItens } from "../item";
 import { AppContext } from "../../context";
@@ -35,6 +40,15 @@ export const ListItens = () => {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => <Item {...item} />}
                     ListEmptyComponent={<EmptyItens />}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={isLoading}
+                            onRefresh={fetchItens}
+                            progressBackgroundColor="#FBF9FE"
+                            titleColor="#FBF9FE"
+                            title="Refresh..."
+                        />
+                    }
                     className="flex-1"
                 />
             )}
