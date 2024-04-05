@@ -15,7 +15,8 @@ export const AppProvider = ({ children }) => {
     });
     const [itens, setItens] = useState([]);
     const netInfo = useNetInfo();
-    const isConnected = netInfo.isConnected && netInfo.isInternetReachable;
+    const isConnected =
+        netInfo.isConnected && (netInfo.isInternetReachable ?? true);
 
     const value = useMemo(
         () => ({
