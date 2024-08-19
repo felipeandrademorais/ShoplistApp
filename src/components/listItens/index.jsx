@@ -12,11 +12,10 @@ import { AppContext } from "../../context";
 export const ListItens = () => {
     const { itens, setItens } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
-    const { fetchData, subscribeToData } = useDatabase();
+    const { fetchData } = useDatabase();
 
     useEffect(() => {
         fetchItens();
-        subscribeToData("lists", setItens);
     }, []);
 
     const fetchItens = async () => {

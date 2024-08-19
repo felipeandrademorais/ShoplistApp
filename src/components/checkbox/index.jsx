@@ -8,7 +8,11 @@ export const Checkbox = ({ item }) => {
 
     const handleCheckbox = async () => {
         try {
-            await updateData("lists", { checked: !item.checked }, item.id);
+            await updateData(
+                "lists",
+                { checked: item.checked ? 0 : 1 },
+                item.id
+            );
         } catch (error) {
             console.log(error);
         }
@@ -24,7 +28,7 @@ export const Checkbox = ({ item }) => {
             } rounded-md`}
         >
             <View className="flex-1 justify-center items-center">
-                {item.checked && (
+                {item.checked === 1 && (
                     <Check size={12} strokeWidth="4" className="text-white" />
                 )}
             </View>
