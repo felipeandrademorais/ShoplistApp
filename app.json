@@ -1,7 +1,7 @@
 {
     "expo": {
-        "name": "shop",
-        "slug": "shop",
+        "name": "Marklist - Lista de Compras",
+        "slug": "marklistlistadecompras",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
@@ -9,17 +9,20 @@
         "splash": {
             "image": "./assets/splash.png",
             "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
+            "backgroundColor": "#1E1E1E"
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "supportsTablet": true,
-            "bundleIdentifier": "com.felipeandroid.shop"
+            "bundleIdentifier": "com.felipeandroid.shop",
+            "image": "./assets/iphone-splash-preview-dark.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#1E1E1E"
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
+                "backgroundColor": "#1E1E1E"
             },
             "package": "com.felipeandroid.shop",
             "permissions": ["ACCESS_NETWORK_STATE", "INTERNET"]
@@ -29,14 +32,14 @@
         },
         "extra": {
             "eas": {
-                "projectId": "e247b5ae-0208-4a54-94c7-a44867863917"
+                "projectId": "e5541b3c-5352-4893-8564-ded29867a821"
             }
         },
         "runtimeVersion": {
             "policy": "appVersion"
         },
         "updates": {
-            "url": "https://u.expo.dev/e247b5ae-0208-4a54-94c7-a44867863917"
+            "url": "https://u.expo.dev/e5541b3c-5352-4893-8564-ded29867a821"
         }
     }
 }
