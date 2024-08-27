@@ -1,9 +1,11 @@
-import Main from "./src/main";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { AppProvider } from "./src/context/provider";
-import { MenuProvider } from "react-native-popup-menu";
 import { SQLiteProvider } from "expo-sqlite/next";
+import { MenuProvider } from "react-native-popup-menu";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+
+import { AppProvider } from "./src/context/provider";
 import { initializeDatabase } from "./src/database/initializeDatabase";
+import Routes from "./src/routes";
 
 export default function App() {
     return (
@@ -14,7 +16,9 @@ export default function App() {
             >
                 <AppProvider>
                     <MenuProvider>
-                        <Main />
+                        <NavigationContainer>
+                            <Routes />
+                        </NavigationContainer>
                     </MenuProvider>
                 </AppProvider>
             </SQLiteProvider>
